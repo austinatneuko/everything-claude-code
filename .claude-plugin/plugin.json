@@ -6,8 +6,8 @@
     "name": "Affaan Mustafa",
     "url": "https://x.com/affaanmustafa"
   },
-  "homepage": "https://github.com/affaan-m/everything-claude-code",
-  "repository": "https://github.com/affaan-m/everything-claude-code",
+  "homepage": "https://github.com/austinatneuko/everything-claude-code",
+  "repository": "https://github.com/austinatneuko/everything-claude-code",
   "license": "MIT",
   "keywords": [
     "claude-code",
@@ -22,7 +22,7 @@
     "automation",
     "best-practices"
   ],
-  "skills": ["./skills/", "./commands/"],
+  "skills": ["./skills/", "./commands/", "./readiness/skills/"],
   "agents": [
     "./agents/architect.md",
     "./agents/build-error-resolver.md",

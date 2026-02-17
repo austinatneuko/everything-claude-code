@@ -1,35 +1,66 @@
-**Language:** English | [繁體中文](docs/zh-TW/README.md)
+# Everything Claude Code (Extended Fork)
 
-# Everything Claude Code
-
-[![Stars](https://img.shields.io/github/stars/affaan-m/everything-claude-code?style=flat)](https://github.com/affaan-m/everything-claude-code/stargazers)
-[![Forks](https://img.shields.io/github/forks/affaan-m/everything-claude-code?style=flat)](https://github.com/affaan-m/everything-claude-code/network/members)
-[![Contributors](https://img.shields.io/github/contributors/affaan-m/everything-claude-code?style=flat)](https://github.com/affaan-m/everything-claude-code/graphs/contributors)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Shell](https://img.shields.io/badge/-Shell-4EAA25?logo=gnu-bash&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
-![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
-![Go](https://img.shields.io/badge/-Go-00ADD8?logo=go&logoColor=white)
-![Java](https://img.shields.io/badge/-Java-ED8B00?logo=openjdk&logoColor=white)
 ![Markdown](https://img.shields.io/badge/-Markdown-000000?logo=markdown&logoColor=white)
 
-> **42K+ stars** | **5K+ forks** | **24 contributors** | **6 languages supported** | **Anthropic Hackathon Winner**
+> Forked from [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) — the complete collection of Claude Code configs from an Anthropic hackathon winner.
+
+Production-ready agent harness combining **three layers** into a single forkable repo:
+
+1. **Base Plugin** (upstream) — 13 agents, 31 commands, 8 rules, 43 skills, hooks, and MCP configurations evolved over 10+ months of intensive daily use
+2. **Factory.ai Agent Readiness** — 52-criteria checklist across 9 pillars and 4 maturity levels, `/project-init` bootstrapping, `/readiness-check` assessment, CLAUDE.md template, and memory capture hook
+3. **Codex-Inspired Harness Improvements** — Item/Turn/Context tracking hooks (thread-like primitives), `/fork` command for state snapshots, `/checkpoint` with structured SESSION.md generation, and tool enumeration stabilization for prompt cache optimization
 
 ---
 
-<div align="center">
+## Quick Start (Fork)
 
-**🌐 Language / 语言 / 語言**
+```bash
+# Clone into ~/.claude/
+git clone https://github.com/austinatneuko/everything-claude-code.git ~/.claude/everything-claude-code
 
-[**English**](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md)
+# Symlink readiness skills for discovery
+ln -s ~/.claude/everything-claude-code/readiness/skills/* ~/.claude/skills/
 
-</div>
+# Add to ~/.claude/settings.json
+# "enabledPlugins": { "everything-claude-code@everything-claude-code": true }
+```
+
+Then in any project:
+- `/readiness-check` — Audit project readiness (L1-L4 scorecard)
+- `/project-init` — Bootstrap CLAUDE.md, .env.example, templates, CI, test runner
+- `/checkpoint` — Generate structured SESSION.md for seamless context resume
+- `/fork <name>` — Snapshot state before debugging tangents
 
 ---
 
-**The complete collection of Claude Code configs from an Anthropic hackathon winner.**
+## What's New in This Fork
 
-Production-ready agents, skills, hooks, commands, rules, and MCP configurations evolved over 10+ months of intensive daily use building real products.
+### Factory.ai Agent Readiness (`readiness/`)
+
+A system for making every project agent-ready before you start coding. Based on [Factory.ai's Agent Readiness framework](https://factory.ai/agent-readiness).
+
+| Component | Description |
+|-----------|-------------|
+| `readiness/checklist.md` | 52 binary pass/fail criteria, 9 pillars, 4 levels (L1-L4) |
+| `readiness/templates/CLAUDE.md.template` | Per-project agent briefing packet with delegation guide |
+| `readiness/scripts/memory-capture.js` | Auto-capture learnings via trigger phrases (`# note`, `## personal`, `remember this:`) |
+| `readiness/skills/readiness-check/` | `/readiness-check` — static analysis scorecard |
+| `readiness/skills/project-init/` | `/project-init` — one-command scaffolding (CLAUDE.md, .env.example, templates, ultracite, vitest, CI, dependabot) |
+
+### Codex-Inspired Harness Improvements
+
+Inspired by [OpenAI Codex's harness architecture](https://developers.openai.com/codex) — conversation primitives, retry detection, and context measurement.
+
+| Component | Description |
+|-----------|-------------|
+| `scripts/hooks/item-tracker.js` | PostToolUse hook tracking each tool execution (tool, target, success, retry sequence) |
+| `scripts/hooks/turn-tracker.js` | Stop hook recording each user-agent exchange |
+| `scripts/hooks/context-meter.js` | Stop hook estimating context window utilization, warns at 80%/90% |
+| `commands/fork.md` | `/fork` — snapshot state before tangents |
+| `commands/checkpoint.md` | `/checkpoint` — generate structured SESSION.md for `/clear` resume |
+| `skills/structured-checkpoint/` | Skill backing the checkpoint command |
 
 ---
 
@@ -107,7 +138,7 @@ Get up and running in under 2 minutes:
 
 ```bash
 # Add marketplace
-/plugin marketplace add affaan-m/everything-claude-code
+/plugin marketplace add austinatneuko/everything-claude-code
 
 # Install plugin
 /plugin install everything-claude-code@everything-claude-code
@@ -120,7 +151,7 @@ Get up and running in under 2 minutes:
 
 ```bash
 # Clone the repo first
-git clone https://github.com/affaan-m/everything-claude-code.git
+git clone https://github.com/austinatneuko/everything-claude-code.git
 cd everything-claude-code
 
 # Recommended: use the installer (handles common + language rules safely)
@@ -459,7 +490,7 @@ The easiest way to use this repo - install as a Claude Code plugin:
 
 ```bash
 # Add this repo as a marketplace
-/plugin marketplace add affaan-m/everything-claude-code
+/plugin marketplace add austinatneuko/everything-claude-code
 
 # Install the plugin
 /plugin install everything-claude-code@everything-claude-code
@@ -473,7 +504,7 @@ Or add directly to your `~/.claude/settings.json`:
     "everything-claude-code": {
       "source": {
         "source": "github",
-        "repo": "affaan-m/everything-claude-code"
+        "repo": "austinatneuko/everything-claude-code"
       }
     }
   },
@@ -489,7 +520,7 @@ This gives you instant access to all commands, agents, skills, and hooks.
 >
 > ```bash
 > # Clone the repo first
-> git clone https://github.com/affaan-m/everything-claude-code.git
+> git clone https://github.com/austinatneuko/everything-claude-code.git
 >
 > # Option A: User-level rules (applies to all projects)
 > mkdir -p ~/.claude/rules
@@ -512,7 +543,7 @@ If you prefer manual control over what's installed:
 
 ```bash
 # Clone the repo
-git clone https://github.com/affaan-m/everything-claude-code.git
+git clone https://github.com/austinatneuko/everything-claude-code.git
 
 # Copy agents to your Claude config
 cp everything-claude-code/agents/*.md ~/.claude/agents/
