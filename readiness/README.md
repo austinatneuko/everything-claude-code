@@ -132,14 +132,15 @@ Entries are saved as timestamped lines:
 ├── checklist.md                           # 51 criteria, 9 pillars, L1-L4
 ├── scripts/
 │   └── memory-capture.js                  # UserPromptSubmit hook
-├── skills/
-│   ├── readiness-check/SKILL.md           # Assessment skill
-│   └── project-init/SKILL.md              # Bootstrapping skill
 └── templates/
     └── CLAUDE.md.template                 # Per-project briefing packet template
+
+~/.claude/skills/
+├── readiness-check/SKILL.md               # Assessment skill
+└── project-init/SKILL.md                  # Bootstrapping skill
 ```
 
-Skills are symlinked into `~/.claude/skills/` for discovery.
+Skills live in the top-level `skills/` directory for automatic discovery.
 The memory capture hook is registered in `~/.claude/everything-claude-code/hooks/hooks.json` under `UserPromptSubmit`.
 
 ## The Readiness Checklist

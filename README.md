@@ -20,9 +20,6 @@ Production-ready agent harness combining **three layers** into a single forkable
 # Clone into ~/.claude/
 git clone https://github.com/austinatneuko/everything-claude-code.git ~/.claude/everything-claude-code
 
-# Symlink readiness skills for discovery
-ln -s ~/.claude/everything-claude-code/readiness/skills/* ~/.claude/skills/
-
 # Add to ~/.claude/settings.json
 # "enabledPlugins": { "everything-claude-code@everything-claude-code": true }
 ```
@@ -46,8 +43,8 @@ A system for making every project agent-ready before you start coding. Based on 
 | `readiness/checklist.md` | 52 binary pass/fail criteria, 9 pillars, 4 levels (L1-L4) |
 | `readiness/templates/CLAUDE.md.template` | Per-project agent briefing packet with delegation guide |
 | `readiness/scripts/memory-capture.js` | Auto-capture learnings via trigger phrases (`# note`, `## personal`, `remember this:`) |
-| `readiness/skills/readiness-check/` | `/readiness-check` — static analysis scorecard |
-| `readiness/skills/project-init/` | `/project-init` — one-command scaffolding (CLAUDE.md, .env.example, templates, ultracite, vitest, CI, dependabot) |
+| `skills/readiness-check/` | `/readiness-check` — static analysis scorecard |
+| `skills/project-init/` | `/project-init` — one-command scaffolding (CLAUDE.md, .env.example, templates, ultracite, vitest, CI, dependabot) |
 
 ### Codex-Inspired Harness Improvements
 
