@@ -1,23 +1,67 @@
 # Checkpoint Command
 
-Create or verify a checkpoint in your workflow.
+Create a structured SESSION.md checkpoint for seamless resume after `/clear`, or create a git-based checkpoint.
 
 ## Usage
 
-`/checkpoint [create|verify|list] [name]`
+`/checkpoint [session|git|verify|list] [name]`
 
-## Create Checkpoint
+**Default (no args):** Creates a SESSION.md checkpoint (recommended).
 
-When creating a checkpoint:
+## Session Checkpoint (default)
+
+When creating a session checkpoint:
+
+1. **Review conversation history** — what was discussed, decided, implemented
+2. **Check git status** — what files were actually modified
+3. **Review task list** — what's done, what's pending
+4. **Write SESSION.md** in project root with this structure:
+
+```markdown
+# Session: <date>
+
+## Current Objective
+<1-2 sentences: what are we trying to accomplish?>
+
+## Decisions Made
+- Decision 1: rationale
+- Decision 2: rationale
+
+## Progress
+### Completed
+- [x] Task description (file: path/to/file.ts)
+
+### In Progress
+- [ ] Task description — stopped at: <specific point>
+
+### Remaining
+- [ ] Task description
+
+## Key Files Modified
+- `path/to/file.ts` — Description of change
+
+## Context to Preserve
+- Important: <gotcha or non-obvious detail>
+
+## Resume Command
+<exact first instruction for the next session>
+```
+
+5. **Confirm** — tell the user they can safely `/clear`
+
+Key principles:
+- Preserve decisions, not discussions
+- Be specific about stopping points
+- Include resume command
+- Keep under 100 lines
+
+## Git Checkpoint
+
+When using `/checkpoint git <name>`:
 
 1. Run `/verify quick` to ensure current state is clean
 2. Create a git stash or commit with checkpoint name
-3. Log checkpoint to `.claude/checkpoints.log`:
-
-```bash
-echo "$(date +%Y-%m-%d-%H:%M) | $CHECKPOINT_NAME | $(git rev-parse --short HEAD)" >> .claude/checkpoints.log
-```
-
+3. Log checkpoint to `.claude/checkpoints.log`
 4. Report checkpoint created
 
 ## Verify Checkpoint
@@ -25,50 +69,18 @@ echo "$(date +%Y-%m-%d-%H:%M) | $CHECKPOINT_NAME | $(git rev-parse --short HEAD)
 When verifying against a checkpoint:
 
 1. Read checkpoint from log
-2. Compare current state to checkpoint:
-   - Files added since checkpoint
-   - Files modified since checkpoint
-   - Test pass rate now vs then
-   - Coverage now vs then
-
-3. Report:
-```
-CHECKPOINT COMPARISON: $NAME
-============================
-Files changed: X
-Tests: +Y passed / -Z failed
-Coverage: +X% / -Y%
-Build: [PASS/FAIL]
-```
+2. Compare current state to checkpoint
+3. Report changes, test results, coverage
 
 ## List Checkpoints
 
-Show all checkpoints with:
-- Name
-- Timestamp
-- Git SHA
-- Status (current, behind, ahead)
-
-## Workflow
-
-Typical checkpoint flow:
-
-```
-[Start] --> /checkpoint create "feature-start"
-   |
-[Implement] --> /checkpoint create "core-done"
-   |
-[Test] --> /checkpoint verify "core-done"
-   |
-[Refactor] --> /checkpoint create "refactor-done"
-   |
-[PR] --> /checkpoint verify "feature-start"
-```
+Show all checkpoints (SESSION.md history + git checkpoints)
 
 ## Arguments
 
 $ARGUMENTS:
-- `create <name>` - Create named checkpoint
-- `verify <name>` - Verify against named checkpoint
+- (no args) - Create SESSION.md checkpoint (recommended)
+- `session` - Create SESSION.md checkpoint
+- `git <name>` - Create named git checkpoint
+- `verify <name>` - Verify against named git checkpoint
 - `list` - Show all checkpoints
-- `clear` - Remove old checkpoints (keeps last 5)

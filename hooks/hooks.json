@@ -79,6 +79,16 @@
     ],
     "PostToolUse": [
       {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/item-tracker.js\""
+          }
+        ],
+        "description": "Track tool executions as items with lifecycle states (started/completed)"
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {
@@ -141,6 +151,38 @@
           }
         ],
         "description": "Check for console.log in modified files after each response"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/turn-tracker.js\""
+          }
+        ],
+        "description": "Track conversation turns for thread-like history (Codex Items/Turns/Threads pattern)"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/context-meter.js\""
+          }
+        ],
+        "description": "Estimate context window usage and warn at 80%/90% thresholds"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/readiness/scripts/memory-capture.js\""
+          }
+        ],
+        "description": "Auto-capture memories from trigger phrases (# project, ## personal, remember this:, note:, save this:)"
       }
     ],
     "SessionEnd": [
