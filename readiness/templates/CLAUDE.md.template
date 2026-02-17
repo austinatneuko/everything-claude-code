@@ -1,0 +1,180 @@
+<!--
+  CLAUDE.md Template — Agent Briefing Packet
+
+  This file is the single source of truth for AI coding agents working in
+  this project. It is NOT a README for humans.
+
+  INSTRUCTIONS:
+  1. Copy to project root as CLAUDE.md
+  2. Replace all {{PLACEHOLDERS}} with actual values
+  3. Delete HTML comments once filled in
+  4. Keep final file under 150 lines — link to docs, don't duplicate
+  5. Update when build steps, structure, or conventions change
+-->
+
+# {{PROJECT_NAME}}
+
+<!-- 1-2 sentences. What does this project do? Who is it for? -->
+{{PROJECT_DESCRIPTION}}
+
+## Commands
+
+| Action | Command |
+|--------|---------|
+| Install | `{{PACKAGE_MANAGER}} install` |
+| Dev server | `{{DEV_COMMAND}}` |
+| Build | `{{BUILD_COMMAND}}` |
+| Test (all) | `{{TEST_COMMAND}}` |
+| Test (single) | `{{TEST_SINGLE_COMMAND}}` |
+| Lint | `{{LINT_COMMAND}}` |
+| Format | `{{FORMAT_COMMAND}}` |
+| Typecheck | `{{TYPECHECK_COMMAND}}` |
+| Deploy | `{{DEPLOY_COMMAND}}` |
+
+## Project Layout
+
+```
+{{DIRECTORY_TREE}}
+```
+
+<!-- Example:
+```
+src/
+  app/          — Next.js app router pages and layouts
+  components/   — React components (one per file)
+  lib/          — Shared utilities and helpers
+  hooks/        — Custom React hooks
+  schemas/      — Zod validation schemas
+  types/        — TypeScript type definitions
+  server/
+    services/   — Business logic (repository pattern)
+    db/         — Database client and migrations
+tests/
+  unit/         — Mirrors src/ structure
+  integration/  — API and database tests
+  e2e/          — Playwright tests
+```
+-->
+
+## Development Patterns
+
+**Stack:** TypeScript, React, Node.js
+<!-- Add specifics: Next.js, tRPC, Prisma, Tailwind, etc. -->
+
+**Immutability:** Never mutate objects or arrays. Always spread or use immutable helpers. No `.push()`, no `obj.key = value`.
+
+**File size:** 200-400 lines typical. 800 max. Extract when files grow.
+
+**Validation:** Zod schemas for all user input and API boundaries. Schemas live in `{{SCHEMAS_DIR}}`.
+
+**Imports:**
+<!-- Use `@/` path alias for src/. No barrel files. Group: React, external, internal, types. -->
+
+**Naming:**
+<!-- camelCase variables/functions, PascalCase components/types, kebab-case files -->
+
+**Error handling:** Try/catch around risky operations. Descriptive Error messages. Never swallow errors. No `console.log` in committed code.
+
+## Git Workflow
+
+**Branch from:** `{{BASE_BRANCH}}`
+**Branch naming:** `<type>/<short-description>` (e.g., `feat/user-avatar`)
+
+**Commits:** `<type>: <description>`
+Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`
+
+**PR requirements:** All checks green, squash merge.
+
+## Testing
+
+**Workflow:** TDD mandatory. Write test first (RED), implement (GREEN), refactor (IMPROVE).
+
+**Coverage target:** 80% minimum.
+
+| Layer | Tool | Location |
+|-------|------|----------|
+| Unit | {{TEST_RUNNER}} | `tests/unit/` |
+| Integration | {{TEST_RUNNER}} | `tests/integration/` |
+| E2E | Playwright | `tests/e2e/` |
+
+**What to test:**
+- Every exported function gets a unit test
+- Every API endpoint gets an integration test
+- Critical user flows get E2E tests
+
+## Delegation Guide
+
+<!-- Which SDLC phases can the agent handle in this project? -->
+<!-- Adapted from OpenAI's AI-Native Engineering Team framework -->
+
+| Phase | Delegate to Agent | You Review | You Own |
+|-------|-------------------|------------|---------|
+| **Plan** | Feasibility analysis, dependency mapping, edge case surfacing | Estimates, scope completeness | Prioritization, sequencing, product tradeoffs |
+| **Design** | Scaffolding, boilerplate, design-to-component translation | Convention adherence, accessibility, integration | Design system, UX patterns, architectural decisions |
+| **Build** | Feature implementation, CRUD logic, refactors, test generation | Design choices, performance, security, domain alignment | New abstractions, cross-cutting architecture, ambiguous requirements |
+| **Test** | Generate test cases, identify edge cases, maintain tests | Verify tests are runnable, validate coverage | Coverage strategy, adversarial thinking, test intent |
+| **Review** | First-pass code review, bug detection, style compliance | Architectural alignment, pattern consistency | Final merge approval, production responsibility |
+| **Document** | File summaries, API descriptions, change summaries | Service overviews, runbooks, architecture pages | Doc strategy, standards, external-facing content |
+| **Deploy** | Log parsing, anomaly detection, hotfix proposals | Validate diagnostics, confirm remediation | Novel incidents, sensitive production changes |
+
+<!-- Customize per project: move items between columns based on your confidence level -->
+
+## Environment
+
+**Node:** {{NODE_VERSION}} (see `.nvmrc`)
+**Package manager:** {{PACKAGE_MANAGER}}
+
+**Required variables:**
+```
+{{ENV_VARS}}
+```
+<!-- Example:
+DATABASE_URL=         # Connection string (secret)
+NEXTAUTH_SECRET=      # Auth signing key (secret)
+NEXTAUTH_URL=         # http://localhost:3000
+STRIPE_SECRET_KEY=    # Stripe API key (secret)
+-->
+
+**Services:** {{ADDITIONAL_SERVICES}}
+<!-- PostgreSQL on :5432, Redis on :6379, or "None" -->
+
+## Domain Vocabulary
+
+<!-- 5-10 key terms with precise meanings in this codebase -->
+
+| Term | Meaning |
+|------|---------|
+| {{TERM_1}} | {{DEFINITION_1}} |
+| {{TERM_2}} | {{DEFINITION_2}} |
+| {{TERM_3}} | {{DEFINITION_3}} |
+
+## Known Gotchas
+
+<!-- Things that waste agent time or cause subtle bugs. Be specific. -->
+<!-- Examples:
+- The `user` table is `app_user` in the database (Prisma renames it)
+- API routes under `/api/public/` have NO auth — don't add middleware there
+- Running tests without DATABASE_URL silently skips integration tests
+- The `amount` field is stored in cents (integer), not dollars (float)
+-->
+
+{{KNOWN_GOTCHAS}}
+
+## Verification
+
+Before any PR, ALL must pass:
+
+```
+{{TYPECHECK_COMMAND}}
+{{LINT_COMMAND}}
+{{TEST_COMMAND}}
+{{BUILD_COMMAND}}
+```
+
+- [ ] No `console.log` in committed code
+- [ ] No hardcoded secrets or API keys
+- [ ] No object/array mutation
+- [ ] New functions have tests
+- [ ] User input validated with Zod
+- [ ] Files under 800 lines
+- [ ] Conventional commit messages
